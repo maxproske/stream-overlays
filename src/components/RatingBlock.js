@@ -46,7 +46,7 @@ export const RatingBlock = ({ rating }) => {
 
   return (
     <StyledRatingBlock blockColour={getBlockColour(rating)}>
-      {rating}
+      {rating >= 0 && rating}
     </StyledRatingBlock>
   )
 }

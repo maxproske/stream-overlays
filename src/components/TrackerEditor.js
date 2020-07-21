@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 
 // Context
@@ -20,14 +20,14 @@ export const TrackerEditor = () => {
 
   const handleMinChange = (e) => {
     const { value, min, max } = e.target
-    const minRating = +Math.max(min, Math.min(max, value))
+    const minRating = Math.max(min, Math.min(max, value))
 
     dispatch(updateMinRating(minRating))
   }
 
   const handleMaxChange = (e) => {
     const { value, min, max } = e.target
-    const maxRating = +Math.max(min, Math.min(max, value))
+    const maxRating = Math.max(min, Math.min(max, value))
 
     dispatch(updateMaxRating(maxRating))
   }

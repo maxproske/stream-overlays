@@ -1,7 +1,7 @@
 export const initialUserState = {
+  minRating: 20,
+  maxRating: 23,
   ratings: [],
-  minRating: '',
-  maxRating: '',
 }
 
 export const userReducer = (state = initialUserState, action) => {

@@ -7,6 +7,8 @@ import wendyFont from '../fonts/wendy.ttf'
 export const GlobalStyle = createGlobalStyle`
   ${normalize}
 
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
+
   @font-face {
     font-family: 'Wendy';
     src: url(${wendyFont}) format('woff');
@@ -14,6 +16,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
+    font-family: 'Roboto', sans-serif;
   }
 
   html {

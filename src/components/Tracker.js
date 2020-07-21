@@ -28,18 +28,23 @@ export const Tracker = () => {
   const [state, dispatch] = useContext(UserContext)
 
   useEffect(() => {
-    // Note: On individual lines for the sake  of useEffect
+    // Note: Assign on individual lines for useEffect dependencies
     const ratings = state.ratings
     const minRating = state.minRating
     const maxRating = state.maxRating
 
     if (minRating && maxRating) {
       for (let rating = minRating; rating <= maxRating; rating++) {
-        if (!ratings.some((x) => x.rating === rating)) {
+        // Check if exists
+        const ratingExists = ratings.some((x) => x.rating === rating)
+        if (!ratingExists) {
           ratings.push({
             rating,
             sessionCount: 0,
           })
+
+          // Sort by rating
+          ratings.sort((a, b) => a.rating - b.rating)
         }
       }
     }
