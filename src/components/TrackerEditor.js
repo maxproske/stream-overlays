@@ -5,7 +5,11 @@ import styled from 'styled-components'
 import { UserContext } from '../stores/UserContext'
 
 // Actions
-import { updateMinRating, updateMaxRating } from '../stores/userActions'
+import {
+  updateRatings,
+  updateMinRating,
+  updateMaxRating,
+} from '../stores/userActions'
 
 // Styling
 const StyledForm = styled.div`
@@ -32,9 +36,26 @@ export const TrackerEditor = () => {
     dispatch(updateMaxRating(maxRating))
   }
 
+  const handleReset = () => {
+    const ratingsUpdate = state.ratings.map((rating) => {
+      if (rating.sessionCount > 0) {
+        return {
+          ...rating,
+          sessionCount: 0,
+        }
+      }
+      return rating
+    })
+
+    dispatch(updateRatings(ratingsUpdate))
+  }
+
   return (
     <StyledForm>
       <form>
+        <button onClick={handleReset}>Reset</button>
+        <br />
+        <br />
         <label>Min Rating </label>
         <input
           min="0"

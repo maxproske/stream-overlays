@@ -14,7 +14,7 @@ import { updateRatings } from '../stores/userActions'
 const StyledRating = styled.div`
   display: grid;
 
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 3rem 4.25rem;
   grid-gap: 0.5rem;
   align-items: center;
 
@@ -40,7 +40,7 @@ export const Rating = ({ rating, sessionCount, lifetimeCount }) => {
   const [state, dispatch] = useContext(UserContext)
 
   const handleCountChange = (e) => {
-    const sessionCountUpdate = e.target.value
+    const sessionCountUpdate = +e.target.value
 
     const ratingsUpdate = state.ratings.map((x) => {
       if (x.rating === rating) {

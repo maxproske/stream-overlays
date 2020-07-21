@@ -8,7 +8,7 @@ export const userReducer = (state = initialUserState, action) => {
   switch (action.type) {
     case 'UPDATE_RATINGS':
       const { ratings } = action
-      localStorage.setItem('ratings', ratings)
+      localStorage.setItem('ratings', JSON.stringify(ratings))
       return {
         ...state,
         ratings,
