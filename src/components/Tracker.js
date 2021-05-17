@@ -20,11 +20,15 @@ const StyledTracker = styled.div`
   display: grid;
   grid-gap: 1rem;
 
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: ${({ numColumns = 4 }) => '1fr '.repeat(numColumns)};
 
   margin: 1rem;
   padding: 1rem;
   background-color: black;
+
+  h1 {
+    color: white;
+  }
 `
 
 export const Tracker = () => {
@@ -88,13 +92,25 @@ export const Tracker = () => {
   return (
     <>
       <TrackerEditor />
-      <StyledTracker>
+      <StyledTracker numColumns={4}>
         {state.ratings &&
           state.ratings.map((rating) => {
             return (
               state.minRating <= rating.rating &&
               state.maxRating >= rating.rating && (
                 <Rating key={rating.rating} {...rating}></Rating>
+              )
+            )
+          })}
+      </StyledTracker>
+      <StyledTracker numColumns={1}>
+        <h1>Personal Bests</h1>
+        {state.ratings &&
+          state.ratings.map((rating) => {
+            return (
+              state.minRating <= rating.rating &&
+              state.maxRating >= rating.rating && (
+                <Rating key={rating.rating} isBPM={true} {...rating}></Rating>
               )
             )
           })}

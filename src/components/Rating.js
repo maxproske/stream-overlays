@@ -14,7 +14,7 @@ import { updateRatings } from '../stores/userActions'
 const StyledRating = styled.div`
   display: grid;
 
-  grid-template-columns: 3rem 4.25rem;
+  grid-template-columns: 3rem ${({ isBPM }) => (isBPM ? '12rem' : '4.25rem')};
   grid-gap: 0.5rem;
   align-items: center;
 
@@ -36,7 +36,13 @@ const StyledCount = styled.div`
   }
 `
 
-export const Rating = ({ rating, sessionCount, lifetimeCount }) => {
+export const Rating = ({
+  rating,
+  sessionCount,
+  lifetimeCount,
+  bpmCount,
+  isBPM = false,
+}) => {
   const [state, dispatch] = useContext(UserContext)
 
   const handleCountChange = (e) => {
@@ -55,16 +61,36 @@ export const Rating = ({ rating, sessionCount, lifetimeCount }) => {
     dispatch(updateRatings(ratingsUpdate))
   }
 
+  const handleBPMChange = (e) => {
+    const sessionBPMUpdate = e.target.value
+
+    const bpmUpdate = state.ratings.map((x) => {
+      if (x.rating === rating) {
+        return {
+          ...x,
+          bpmCount: sessionBPMUpdate,
+        }
+      }
+      return x
+    })
+
+    dispatch(updateRatings(bpmUpdate))
+  }
+
   return (
-    <StyledRating>
+    <StyledRating isBPM={isBPM}>
       <RatingBlock rating={rating} />
       <StyledCount count={sessionCount}>
-        <input
-          type="number"
-          min="0"
-          value={sessionCount}
-          onChange={handleCountChange}
-        />
+        {isBPM ? (
+          <input type="text" value={bpmCount} onChange={handleBPMChange} />
+        ) : (
+          <input
+            type="number"
+            min="0"
+            value={sessionCount}
+            onChange={handleCountChange}
+          />
+        )}
       </StyledCount>
     </StyledRating>
   )
